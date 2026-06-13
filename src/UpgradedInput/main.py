@@ -100,7 +100,7 @@ class UpgradedInput:
         after_input_func:Callable | None = self.after_input_function
         runtime_error_func:Callable | None = self.runtime_error_function
         invalid:bool = False
-        text = ""
+        text:str = ""
 
         def default_exit():
             print("Exiting...")
