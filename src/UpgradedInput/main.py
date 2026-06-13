@@ -60,6 +60,7 @@ class UpgradedInput:
         ```python
         text = input()
         your_function()
+        conversion() # in case gets parsed
         return text
         ```
         """
@@ -141,7 +142,6 @@ class UpgradedInput:
                 case InputTypes.INTEGER:
                     return int(text)
 
-                    
                 case InputTypes.FLOAT:
                     return float(text)
                 
@@ -155,6 +155,7 @@ class UpgradedInput:
                         return True
                     # in any other case
                     return False
+                
         except ValueError:
             print("Invalid value inserted!")
             default_exit()
