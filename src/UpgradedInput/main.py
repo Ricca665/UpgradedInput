@@ -1,4 +1,12 @@
-from typing import Callable
+from typing import Callable, Any
+from enum import Enum
+
+class InputTypes(Enum):
+    """Types of input, used whenever you want to verify if the user input is of determined type (Es: integer)"""
+    STRING = 0
+    INTEGER = 1
+    FLOAT = 2
+    BOOL = 3
 
 class UpgradedInput:
     """Main class for the 'Upgraded input' module.
@@ -74,7 +82,7 @@ class UpgradedInput:
         ```
         """
 
-    def input(self, prompt: object = "") -> str:
+    def input(self, prompt: object = "", type:InputTypes = InputTypes.STRING) -> Any:
         """Original documentation for input:
         
         Read a string from standard input.  The trailing newline is stripped.
@@ -90,32 +98,63 @@ class UpgradedInput:
         exception_func:Callable | None = self.exception_close_input_function
         after_input_func:Callable | None = self.after_input_function
         runtime_error_func:Callable | None = self.runtime_error_function
+        invalid:bool = False
+        text = ""
 
         def default_exit():
             print("Exiting...")
             exit(1)
-
+        
         try:
             if callable(before_input_func):
                 before_input_func()
 
+            def call_after_func():
+                if callable(after_input_func):
+                    after_input_func()
+
             text = input(prompt)
-
-            if callable(after_input_func):
-                after_input_func()
-
-            return text
-        
+            call_after_func()
+                
         except (EOFError, KeyboardInterrupt):
             if callable(exception_func):
                 exception_func()
+                invalid = True
             else:
                 default_exit()
 
         except RuntimeError: # lost sys.stdin
             if callable(runtime_error_func):
                 runtime_error_func()
+                invalid = True
             else:
                 default_exit()
         
-        return ""
+        if invalid:
+            default_exit()
+        
+        try:
+            match type:
+                case InputTypes.STRING:
+                    return text
+                    
+                case InputTypes.INTEGER:
+                    return int(text)
+
+                    
+                case InputTypes.FLOAT:
+                    return float(text)
+                
+                case InputTypes.BOOL:
+                    text_temp = text.lower()
+                    if (
+                        text_temp == "y" or
+                        text_temp == "true" or
+                        text_temp == "1"
+                    ):
+                        return True
+                    # in any other case
+                    return False
+        except ValueError:
+            print("Invalid value inserted!")
+            default_exit()

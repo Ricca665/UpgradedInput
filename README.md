@@ -36,7 +36,7 @@ def runtime_error():
 inp.before_input_function = before
 inp.after_input_function = after
 inp.exception_close_input_function = exception
-inp.runtime_error_function = runtime_error
+inp.runtime_error_function = runtime_error # say we lost sys.stdin or something else that triggers a runtime error
 
 print(inp.input()) # final call to the wrapper
 ```
