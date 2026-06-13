@@ -14,8 +14,7 @@ pip install UpgradedInput
 Use the module
 Example:
 ```python
-from UpgradedInput import UpgradedInput
-
+from UpgradedInput import UpgradedInput, InputTypes
 # initialize
 inp = UpgradedInput()
 
@@ -39,4 +38,8 @@ inp.exception_close_input_function = exception
 inp.runtime_error_function = runtime_error # say we lost sys.stdin or something else that triggers a runtime error
 
 print(inp.input()) # final call to the wrapper
+print(inp.input(prompt="insert text: ")) # supports prompt (from input)
+print(inp.input(type=InputTypes.INTEGER)) # supports automatic conversion!
+print(inp.input(type=InputTypes.FLOAT)) # floats
+print(inp.input(type=InputTypes.BOOL)) # booleans
 ```

@@ -1,1 +1,1 @@
-from .main import UpgradedInput
+from .main import UpgradedInput, InputTypes
