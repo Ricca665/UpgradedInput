@@ -1,9 +1,9 @@
 # UpgradedInput
 A better, minimal input() wrapper for python
 
-
 Features compared to python's default input()
 - Supports hooks for functions (Before and after input, on exception and on runtime error)
+- Supports automatic conversion with validation
 
 # How to use
 Install the module
