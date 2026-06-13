@@ -14,7 +14,7 @@ pip install UpgradedInput
 Use the module
 Example:
 ```python
-from UpgradedInput.main import UpgradedInput
+from UpgradedInput import UpgradedInput
 
 # initialize
 inp = UpgradedInput()
