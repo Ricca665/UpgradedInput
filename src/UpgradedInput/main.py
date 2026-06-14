@@ -2,14 +2,15 @@ from typing import Callable, Any
 from enum import Enum
 
 class InputTypes(Enum):
-    """Types of input, used whenever you want to verify if the user input is of determined type (Es: integer)"""
+    """Types of input, used whenever you want to automatically convert
+    the user input into a determined type (Es: Integer)"""
     STRING = 0
     INTEGER = 1
     FLOAT = 2
     BOOL = 3
 
 class UpgradedInput:
-    """Main class for the 'Upgraded input' module.
+    """Main class for the 'Upgraded Input' module.
     
     By default, all callbacks are initialized to None.
 
