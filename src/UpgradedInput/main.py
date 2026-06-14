@@ -32,7 +32,7 @@ class UpgradedInput:
         ```
         """
 
-        self.exception_close_input_function: Callable | None = None
+        self.end_of_file_input_function: Callable | None = None
         """
         This variable takes any function or None
 
@@ -71,7 +71,7 @@ class UpgradedInput:
 
         If the function is valid it gets called when input gets called in case sys.stdin gets lost
         
-        (as in you so sys.stdin = None)
+        (as in you do sys.stdin = None for example)
 
         So it works like this:
 
@@ -80,6 +80,24 @@ class UpgradedInput:
             return input()
         except RuntimeError:
             runtime_error_function()
+        ```
+        """
+
+        self.invalid_user_input_function: Callable | None = None
+        """
+        This variable takes any function or None
+
+        If the function is valid it gets called when the automatic conversion fails,
+        else, at it's default state, exists the program
+
+        So it gets called like this:
+
+        ```python
+        text = input()
+        try:
+            return automatic_conversion(text)
+        except ValueError:
+            return your_function(text)
         ```
         """
 
@@ -93,12 +111,16 @@ class UpgradedInput:
 
         If the user hits EOF (*nix: Ctrl-D, Windows: Ctrl-Z+Return), raise EOFError.
         On *nix systems, readline is used if available.
+
+        type: Specifies the automatic conversion
+        (Default is InputTypes.STRING so it returns the string)
         """
 
         before_input_func:Callable | None = self.before_input_function
-        exception_func:Callable | None = self.exception_close_input_function
+        exception_func:Callable | None = self.end_of_file_input_function
         after_input_func:Callable | None = self.after_input_function
         runtime_error_func:Callable | None = self.runtime_error_function
+        invalid_input_func:Callable | None = self.invalid_user_input_function
         invalid:bool = False
         text:str = ""
 
@@ -157,5 +179,9 @@ class UpgradedInput:
                     return False
                 
         except ValueError:
-            print("Invalid value inserted!")
-            default_exit()
+            if callable(invalid_input_func):
+                return invalid_input_func(text)
+            else:
+                print("Invalid value inserted!")
+                default_exit()
+                
