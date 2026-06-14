@@ -51,3 +51,14 @@ print(inp.input(type=InputTypes.INTEGER)) # supports automatic conversion!
 print(inp.input(type=InputTypes.FLOAT)) # floats
 print(inp.input(type=InputTypes.BOOL)) # booleans
 ```
+
+# Testing
+Run this command to install the testing suite:
+```
+pip install pytest pytest-ordering
+```
+
+Then simply run in the root directory:
+```
+pytest
+```
