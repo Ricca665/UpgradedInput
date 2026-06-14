@@ -3,7 +3,7 @@ A better, minimal input() wrapper for python
 
 Features compared to python's default input()
 - Supports hooks for functions (Before and after input, on exception and on runtime error)
-- Supports automatic conversion with validation
+- Supports automatic conversion with validation (With hooks too! Read docs)
 
 # How to use
 Install the module
@@ -46,7 +46,7 @@ print(inp.input()) # final call to the wrapper
 print(inp.input(prompt="insert text: ")) # supports prompt (from input)
 
 # in case the automatic conversion fails, in this example it calls invalid_user_input 
-# which prints what the user typed, and returns None in this example (REFER TO DOCUMENTATION!!!!!!!!)
+# which prints what the user typed, and returns None (REFER TO DOCUMENTATION!!!!!!!!)
 print(inp.input(type=InputTypes.INTEGER)) # supports automatic conversion!
 print(inp.input(type=InputTypes.FLOAT)) # floats
 print(inp.input(type=InputTypes.BOOL)) # booleans
