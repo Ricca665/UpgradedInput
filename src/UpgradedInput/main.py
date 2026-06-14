@@ -132,12 +132,10 @@ class UpgradedInput:
             if callable(before_input_func):
                 before_input_func()
 
-            def call_after_func():
-                if callable(after_input_func):
-                    after_input_func()
-
             text = input(prompt)
-            call_after_func()
+            
+            if callable(after_input_func):
+                after_input_func()
                 
         except (EOFError, KeyboardInterrupt):
             if callable(exception_func):
@@ -184,4 +182,3 @@ class UpgradedInput:
             else:
                 print("Invalid value inserted!")
                 default_exit()
-                
